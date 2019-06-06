@@ -10,13 +10,14 @@ const admiralHost = process.env.ADMIRAL_HOST
 const appId = process.env.PLUGIN_APPID
 const order = process.env.PLUGIN_ORDER
 const version = process.env.PLUGIN_VERSION
+const explicitEnvironment = process.env.PLUGIN_ENVIRONMENT
 
 if (!admiralHost || !appId || !order || !version) {
   console.log('ADMIRALHOST, APPID, ORDER and VERSION must all be set')
   process.exit(1)
 }
 
-const environment = version.includes('-') ? 'staging' : 'production'
+const environment = explicitEnvironment || version.includes('-') ? 'staging' : 'production'
 
 const client = new Socket(admiralHost, { strategy: false })
 
